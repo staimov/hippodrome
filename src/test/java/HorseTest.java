@@ -144,7 +144,7 @@ class HorseTest {
     @Test
     @Order(130)
     void moveShouldCallGetRandomDoubleWithRelevantParams() {
-        try (MockedStatic mock = mockStatic(Horse.class)) {
+        try (MockedStatic<Horse> mock = mockStatic(Horse.class)) {
             new Horse("foo", 1.0, 1.0).move();
 
             mock.verify(() -> Horse.getRandomDouble(0.2, 0.9));
@@ -153,9 +153,9 @@ class HorseTest {
 
     @ParameterizedTest
     @Order(140)
-    @ValueSource(doubles = {  0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.89 })
+    @ValueSource(doubles = { 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.89 })
     void moveShouldSetRelevantDistance(double randomValue) {
-        try (MockedStatic mock = mockStatic(Horse.class)) {
+        try (MockedStatic<Horse> mock = mockStatic(Horse.class)) {
             mock.when(() -> Horse.getRandomDouble(0.2, 0.9)).thenReturn(randomValue);
 
             Horse horse = new Horse("foo", 2.2, 3.3);
@@ -166,5 +166,4 @@ class HorseTest {
             assertEquals(expected, actual);
         }
     }
-
 }
