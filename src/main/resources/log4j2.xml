@@ -17,7 +17,7 @@
             </Policies>
             <DefaultRolloverStrategy>
                 <Delete basePath="${BASE_PATH}">
-                    <!-- Delete all files older than 7 days -->
+                    <!-- Delete hippodrome*.log files older than 7 days -->
                     <IfFileName glob="hippodrome*.log" />
                     <IfLastModified age="7d" />
                 </Delete>
