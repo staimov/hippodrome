@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 public class Main {
     // https://howtodoinjava.com/log4j2/log4j2-with-slf4j/
-    private static Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
         List<Horse> horses = List.of(
@@ -19,14 +19,18 @@ public class Main {
         );
         Hippodrome hippodrome = new Hippodrome(horses);
 
+        logger.info("Начало скачек. Количество участников: {}", horses.size());
+
         for (int i = 0; i < 100; i++) {
             hippodrome.move();
-            watch(hippodrome);
+            //watch(hippodrome);
             TimeUnit.MILLISECONDS.sleep(200);
         }
 
         String winnerName = hippodrome.getWinner().getName();
         System.out.println("Победил " + winnerName + "!");
+
+        logger.info("Окончание скачек. Победитель: {}", winnerName);
     }
 
     private static void watch(Hippodrome hippodrome) throws Exception {
