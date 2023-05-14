@@ -52,7 +52,6 @@ class HippodromeTest {
         List<Horse> horses = new ArrayList<>();
         Horse horseMock = Mockito.mock(Horse.class);
         int expectedNumber = 50;
-
         for (int i = 0; i < expectedNumber; ++i) {
             horses.add(horseMock);
         }
@@ -74,6 +73,6 @@ class HippodromeTest {
         Horse expected = Collections.max(horses, Comparator.comparing(Horse::getDistance));
         Horse actual = new Hippodrome(horses).getWinner();
 
-        assertEquals(expected, actual);
+        assertSame(expected, actual);
     }
 }
