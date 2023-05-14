@@ -1,7 +1,11 @@
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
+    // https://howtodoinjava.com/log4j2/log4j2-with-slf4j/
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
         List<Horse> horses = List.of(
