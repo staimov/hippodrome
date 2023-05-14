@@ -23,7 +23,7 @@ public class Main {
 
         for (int i = 0; i < 100; i++) {
             hippodrome.move();
-            //watch(hippodrome);
+            watch(hippodrome);
             TimeUnit.MILLISECONDS.sleep(200);
         }
 
