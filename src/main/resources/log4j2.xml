@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Extra logging related to initialization of Log4j.
- Set to debug or trace if log4j initialization is failing. -->
 <Configuration status="warn">
+    <Properties>
+        <Property name="BASE_PATH">./logs</Property>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1}: %m%n</Property>
+    </Properties>
+
     <Appenders>
+        <!-- RollingFile appender configuration -->
+        <RollingFile name="fileLogger"
+                     fileName="${BASE_PATH}/hippodrome.log"
+                     filePattern="${BASE_PATH}/hippodrome.%d{yyyy-MM-dd}.log">
+            <PatternLayout
+                    pattern="${LOG_PATTERN}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${BASE_PATH}">
+                    <!-- Delete all files older than 7 days -->
+                    <IfFileName glob="hippodrome*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
         <!-- Console appender configuration -->
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout
-                    pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1}: %m%n" />
+                    pattern="${LOG_PATTERN}" />
         </Console>
     </Appenders>
     <Loggers>
-        <!-- Root logger referring to console appender -->
         <Root level="debug" additivity="false">
-            <AppenderRef ref="console" />
+            <AppenderRef ref="fileLogger" />
+            <AppenderRef ref="console" level="warn" />
         </Root>
     </Loggers>
 </Configuration>
